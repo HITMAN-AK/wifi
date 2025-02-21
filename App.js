@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import WifiManager from "react-native-wifi-reborn";
-
 export default function App() {
   const [ipAddress, setIpAddress] = useState(null);
   const [wifiStatus, setWifiStatus] = useState(null);
   const [wifiStrength, setWifiStrength] = useState(null);
-
   const fetchWifiInfo = () => {
-    // Get the IP Address and WiFi status
     NetInfo.fetch().then((state) => {
       setWifiStatus(state.type === "wifi" ? "Connected to WiFi" : "Not Connected to WiFi");
 
@@ -19,8 +16,6 @@ export default function App() {
         setIpAddress("Unknown");
       }
     });
-
-    // Get the WiFi signal strength
     WifiManager.getCurrentSignalStrength().then((strength) => {
       setWifiStrength(strength);
     }).catch((error) => {
